@@ -1,8 +1,9 @@
-import sbt._
-import sbt.Keys._
-import play.sbt.PlayScala
-import play.sbt.Play.autoImport._
+
 import Dependencies._
+import com.typesafe.sbt.web._
+import play.sbt.PlayScala
+import sbt.Keys._
+import sbt._
 
 object ProjectBuild extends Build {
 
@@ -31,24 +32,28 @@ object ProjectBuild extends Build {
   }
 
   lazy val firstProject = buildProject("First-Project", "project1")
-    .settings(libraryDependencies ++= docsProcessingDeps)
+    .settings(libraryDependencies ++= projectOneDeps)
     .dependsOn(secondProject)
 
   lazy val secondProject = buildProject("Second-Project", "project2")
 
+  lazy val ui = buildProject("Client-Side", "ui")
+    .enablePlugins(SbtWeb)
+    .settings(libraryDependencies ++= webJarDependesies).addSbtFiles(file("build.sbt"))
+
   lazy val server = buildProject("application", "application")
-    .settings(libraryDependencies ++= serverDeps)
+    .settings(libraryDependencies ++= applicationDeps)
     .settings(PlayScala.projectSettings)
-    .dependsOn(firstProject,secondProject)
-    .enablePlugins(PlayScala)
+    .enablePlugins(PlayScala, SbtWeb)
+    .dependsOn(firstProject, secondProject, ui)
 
   lazy val Root = Project(
     "Root",
     file("."))
     .settings(commonSettings: _*)
     .settings(
-      run in Compile <<= (run in Compile in server)
-     )
-    .aggregate(server, firstProject)
+      run in Compile <<= run in Compile in server
+    )
+    .aggregate(server, firstProject, secondProject, ui)
 
 }
