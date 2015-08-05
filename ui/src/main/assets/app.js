@@ -42,6 +42,16 @@ define(['angular'], function (angular) {
 
     console.log("hello");
 
+    app.controller('AppCtrl',['$scope','$modal', function ($scope, $modal) {
+
+        $scope.open = function(){
+          $modal.open({
+              templateUrl: '/assets/lib/client-side/templates/modal.html'
+          });
+        };
+
+    }]);
+
     return app;
 
 });
