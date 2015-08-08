@@ -12,7 +12,7 @@ Object.keys(window.__karma__.files).forEach(function (file) {
     }
 });
 
-var webjarsPrefix = 'target/web/web-modules/main/webjars/lib';
+var webjarsBasePath = 'target/web/web-modules/main/webjars/lib';
 
 require.config({
     // Karma serves files under /base, which is the basePath from your config file
@@ -48,14 +48,14 @@ require.config({
         'ui-bootstrap-tpls': ['angular']
     },
     paths: {
-        'requirejs': [webjarsPrefix+'/requirejs/require.min'],
-        'jquery': [webjarsPrefix+'/jquery/jquery.min'],
-        'angular': [webjarsPrefix+'/angularjs/angular.min'],
-        'angularMocks': webjarsPrefix+'/angular-mocks/angular-mocks',
-        'angular-route': [webjarsPrefix+'/angularjs/angular-route.min'],
-        'bootstrap': [webjarsPrefix+'/bootstrap/js/bootstrap.min'],
-        'underscore': [webjarsPrefix+'/underscorejs/underscore-min'],
-        'ui-bootstrap': [webjarsPrefix+'/angular-ui-bootstrap/ui-bootstrap-tpls.min'],
+        'requirejs': [webjarsBasePath+'/requirejs/require.min'],
+        'jquery': [webjarsBasePath+'/jquery/jquery.min'],
+        'angular': [webjarsBasePath+'/angularjs/angular.min'],
+        'angularMocks': webjarsBasePath+'/angular-mocks/angular-mocks',
+        'angular-route': [webjarsBasePath+'/angularjs/angular-route.min'],
+        'bootstrap': [webjarsBasePath+'/bootstrap/js/bootstrap.min'],
+        'underscore': [webjarsBasePath+'/underscorejs/underscore-min'],
+        'ui-bootstrap': [webjarsBasePath+'/angular-ui-bootstrap/ui-bootstrap-tpls.min'],
         'jsRoutes': ['src/test/jsRoutesCap']
     }
 });

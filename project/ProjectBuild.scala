@@ -48,7 +48,7 @@ object ProjectBuild extends Build {
     .enablePlugins(PlayScala, SbtWeb)
     .dependsOn(firstProject, secondProject, ui)
 
-  lazy val Root = Project(
+  lazy val Root: Project = Project(
     "Root",
     file("."))
     .settings(commonSettings: _*)
