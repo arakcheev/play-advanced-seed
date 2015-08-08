@@ -17,6 +17,7 @@ object ProjectBuild extends Build {
     organization := buildOrganization,
     version := buildVersion,
     scalaVersion := defaultScalaVersion,
+    libraryDependencies ++= commonDeps,
     resolvers += Resolvers.typesafeReleases,
     resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases" // specs2 depends on scalaz-stream
   )
@@ -55,5 +56,9 @@ object ProjectBuild extends Build {
       run in Compile <<= run in Compile in server
     )
     .aggregate(server, firstProject, secondProject, ui)
+
+  publishArtifact in Test := false
+
+  parallelExecution in Test := false
 
 }

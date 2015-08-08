@@ -2,12 +2,18 @@ import sbt._
 
 object Dependencies {
 
+  lazy val commonDeps: Seq[ModuleID] = Seq(
+    "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
+  )
+
   lazy val projectOneDeps: Seq[ModuleID] = Seq(
 //    Deps here
   )
 
   lazy val applicationDeps: Seq[ModuleID] = Seq(
-//    Deps here
+    "org.scalatestplus" %% "play" % "1.4.0-M3" % "test",
+    "com.typesafe.play" % "play-ws_2.11" % "2.4.2",
+    "org.mockito" % "mockito-core" % "1.10.19"
   )
 
   lazy val webJarDependesies = Seq(
