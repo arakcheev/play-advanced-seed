@@ -53,12 +53,26 @@ object ProjectBuild extends Build {
     file("."))
     .settings(commonSettings: _*)
     .settings(
-      run in Compile <<= run in Compile in server
+      run in Compile <<= run in Compile in server,
+      karma in Test := {
+        "karma start ui/src/test/karma.conf.js" !
+      },
+      test := Def.taskDyn {
+        val exitCode = (karma in Test).value
+        if (exitCode == 0) {
+          Def.task {
+            (test in Test).value
+          }
+        }
+        else throw new IllegalStateException("UI tests fails")
+      }.value
     )
     .aggregate(server, firstProject, secondProject, ui)
 
   publishArtifact in Test := false
 
   parallelExecution in Test := false
+
+  lazy val karma = taskKey[Int]("Run UI test via Karma")
 
 }

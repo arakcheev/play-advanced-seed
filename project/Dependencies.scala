@@ -22,6 +22,7 @@ object Dependencies {
     "org.webjars" % "jquery" % "1.11.1",
     "org.webjars" % "bootstrap" % "3.3.2" exclude("org.webjars", "jquery"),
     "org.webjars" % "angularjs" % "1.3.14" exclude("org.webjars", "jquery"),
-    "org.webjars" % "angular-ui-bootstrap" % "0.12.1-1"
+    "org.webjars" % "angular-ui-bootstrap" % "0.12.1-1",
+    "org.webjars.bower" % "angular-mocks" % "1.4.3"
   )
 }
