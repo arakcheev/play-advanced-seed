@@ -41,11 +41,18 @@ File Directory Layout
 
 UI directory layout bases on [sbt-web][sbt-web] structure.
 
+Testing
+-------------
+`sbt test` run all tests
 
-Inspired by [play-angular-require-seed][p-a], [sbt-web][sbt-web]. 
+`sbt coverage test` running tests and build coverage HTML report. For information about scala coverage plugin,
+ please see [sbt-scoverage][sbt-scoverage].
+
+Inspired by [play-angular-require-seed][p-a], [sbt-web][sbt-web].
 
 
 
 [play]: http://playframework.com
 [sbt-web]: https://github.com/sbt/sbt-web
 [p-a]: https://github.com/mariussoutier/play-angular-require-seed
+[sbt-scoverage]: https://github.com/scoverage/sbt-scoverage
