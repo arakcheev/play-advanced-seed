@@ -1,0 +1,9 @@
+language: scala
+jdk: oraclejdk8
+script:
+  - "echo no op"
+matrix:
+  include:
+#BASE TESTS
+    - scala: 2.11.6
+      script: sbt scoverage test
