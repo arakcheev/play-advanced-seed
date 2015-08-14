@@ -1,5 +1,6 @@
 language: scala
 jdk: oraclejdk8
+sudo: required
 script:
   - "echo no op"
 before_script:
