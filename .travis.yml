@@ -4,8 +4,8 @@ sudo: required
 script:
   - "echo no op"
 before_script:
-  - npm install -g karma karma-jasmine karma-phantomjs-launcher karma-requirejs
-  - npm install -g karma-cli
+  - npm install karma karma-jasmine karma-phantomjs-launcher karma-requirejs
+  - npm install karma-cli
 matrix:
   include:
 #BASE TESTS
