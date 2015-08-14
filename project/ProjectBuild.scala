@@ -5,11 +5,20 @@ import play.sbt.PlayScala
 import sbt.Keys._
 import sbt._
 
+
+import com.typesafe.sbt.web.Import._
+import com.typesafe.sbt.web.Import.WebKeys._
+import com.typesafe.sbt.jse.JsEngineImport.JsEngineKeys
+import com.typesafe.sbt.rjs.Import.RjsKeys
+import com.typesafe.sbt.rjs.Import._
+import com.typesafe.sbt.digest.Import._
+import com.typesafe.sbt.gzip.Import._
+
 object ProjectBuild extends Build {
 
   val defaultScalaVersion = "2.11.6"
 
-  var buildVersion = "0.1"
+  var buildVersion = "1.1"
 
   val buildOrganization = "play-advances-seed"
 
@@ -38,19 +47,29 @@ object ProjectBuild extends Build {
 
   lazy val secondProject = buildProject("Second-Project", "project2")
 
+
   lazy val ui = buildProject("Client-Side", "ui")
     .enablePlugins(SbtWeb)
-    .settings(libraryDependencies ++= webJarDependesies).addSbtFiles(file("build.sbt"))
+    .settings(libraryDependencies ++= webJarDependesies)
 
   lazy val server = buildProject("application", "application")
     .settings(libraryDependencies ++= applicationDeps)
     .settings(PlayScala.projectSettings)
     .enablePlugins(PlayScala, SbtWeb)
     .dependsOn(firstProject, secondProject, ui)
+    .settings(
+      RjsKeys.generateSourceMaps := false,
+      RjsKeys.paths ++= Map("jsRoutes" ->("/jsRoutes", "empty:")),
+      RjsKeys.baseUrl := webModulesLib.value + "/" + ui.id.toLowerCase,
+      JsEngineKeys.engineType := JsEngineKeys.EngineType.Node,
+      JsEngineKeys.parallelism := 8,
+      pipelineStages := Seq(rjs, digest, gzip)
+    )
 
   lazy val Root: Project = Project(
     "Root",
     file("."))
+    .enablePlugins(PlayScala, SbtWeb)
     .settings(commonSettings: _*)
     .settings(
       run in Compile <<= run in Compile in server,
@@ -67,12 +86,12 @@ object ProjectBuild extends Build {
         else throw new IllegalStateException("UI tests fails")
       }.value
     )
-    .aggregate(server, firstProject, secondProject, ui)
+    .aggregate(server, firstProject, secondProject)
+
 
   publishArtifact in Test := false
 
   parallelExecution in Test := false
 
   lazy val karma = taskKey[Int]("Run UI test via Karma")
-
 }

@@ -28,7 +28,6 @@
             'ui-bootstrap-tpls': ['angular']
         },
         paths: {
-            'requirejs': ['/assets/lib/requirejs/require.min'],
             'jquery': ['/assets/lib/jquery/jquery.min'],
             'angular': ['/assets/lib/angularjs/angular.min'],
             'angular-route': ['/assets/lib/angularjs/angular-route.min'],

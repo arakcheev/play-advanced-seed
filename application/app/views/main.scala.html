@@ -5,13 +5,13 @@
     <base href="/">
   <meta charset="UTF-8">
   <title></title>
-    <link href="@routes.Assets.at("lib/client-side/stylesheets/app.css")" rel="stylesheet">
-    <script data-main="@routes.Assets.at("lib/client-side/main")" type="text/javascript" src="@routes.Assets.at("lib/requirejs/require.min.js")"></script>
+    <link href="@routes.Assets.versioned("lib/client-side/stylesheets/app.css")" rel="stylesheet">
+    <script data-main="@routes.Assets.versioned("lib/client-side/main.js")" type="text/javascript" src="@routes.Assets.versioned("lib/requirejs/require.min.js")"></script>
 
 </head>
 <body ng-controller="AppCtrl">
     @text
-    <a ng-click="open()">asd</a>
+    <a ng-click="open()">click me</a>
 
 </body>
 </html>
