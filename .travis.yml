@@ -6,4 +6,4 @@ matrix:
   include:
 #BASE TESTS
     - scala: 2.11.6
-      script: sbt scoverage test
+      script: sbt coverage test
