@@ -13,7 +13,11 @@ object Dependencies {
   lazy val applicationDeps: Seq[ModuleID] = Seq(
     "org.scalatestplus" %% "play" % "1.4.0-M3" % "test",
     "com.typesafe.play" % "play-ws_2.11" % "2.4.2",
-    "org.mockito" % "mockito-core" % "1.10.19"
+    "org.mockito" % "mockito-core" % "1.10.19",
+
+    "com.typesafe.slick" %% "slick" % "2.1.0",
+    "org.slf4j" % "slf4j-nop" % "1.6.4",
+    "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
   )
 
   lazy val webJarDependesies = Seq(

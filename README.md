@@ -17,6 +17,7 @@ Usage
 `sbt run` run play app on 9000 port
 
 `sbt clean compile state` build application stage and resolve all webjars dependencies in `ui`project to play assets.
+Now all assets in ui project will path througth pipelines `rjs`, `digets` and `gzip` so all js, css files will be minimized ang gziped.
 
 File Directory Layout
 ---------------------
@@ -116,7 +117,7 @@ but you need to download webjars dependencies or correct `webjarsBasePath`.
 As usual. For example, to test application:
 
     >sbt
-    [info] Set current project to Root (in build file: play-advanced-seed/)
+    [info] Set crrent project to Root (in build file: play-advanced-seed/)
     > project application
     [info] Set current project to application (in build file: play-advanced-seed/)
     [application] $ test
