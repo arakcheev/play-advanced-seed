@@ -83,7 +83,6 @@ object ProjectBuild extends Build {
   parallelExecution in Test := false
 
   lazy val karma = taskKey[Int]("Run UI test via Karma")
-}
 
   def runOrExit(useDefaults: Boolean = false): Int = {
     if (useDefaults) {
