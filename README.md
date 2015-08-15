@@ -1,6 +1,8 @@
 # play-advanced-seed
 Advanced seed Play 2.4 application
 
+[![Build Status](https://travis-ci.org/arakcheev/play-advanced-seed.svg?branch=master)](https://travis-ci.org/arakcheev/play-advanced-seed)
+
 About
 -------------
 This is sample web application using [Play 2.4][play] and custom build.
@@ -104,6 +106,10 @@ Note!! You may run UI tests using only karma
 
     karma start ui/src/tests/karma.conf.js
 
+You may provide some options to karma. If options not set, default values are used. Currently for example:
+
+    sbt karma -Dkarma=./node_modules/karma/bin/karma -Dkarma-opt="--log-level=debug"
+
 but you need to download webjars dependencies or correct `webjarsBasePath`.
 
 ### Back-end testing
@@ -115,12 +121,13 @@ As usual. For example, to test application:
     [info] Set current project to application (in build file: play-advanced-seed/)
     [application] $ test
 
-### Together
-Use
+or  `sbt 'project application' test`, or:
 
-    sbt test
+     sbt test
 
-for testing all together.
+To run all test, backend and UI:
+
+     sbt test -Dkarma=./node_modules/karma/bin/karma -Dkarma-opt="--log-level=debug"
 
 To running tests and build coverage HTML report.
 
