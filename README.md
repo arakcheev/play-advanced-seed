@@ -1,6 +1,8 @@
 # play-advanced-seed
 Advanced seed Play 2.4 application
 
+[![Build Status](https://travis-ci.org/arakcheev/play-advanced-seed.svg?branch=master)](https://travis-ci.org/arakcheev/play-advanced-seed)
+
 About
 -------------
 This is sample web application using [Play 2.4][play] and custom build.
