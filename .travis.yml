@@ -1,11 +1,3 @@
 language: scala
 jdk: oraclejdk8
-sudo: required
-before_script:
-  - npm install karma karma-jasmine karma-phantomjs-launcher karma-requirejs
-matrix:
-  include:
-#BASE TESTS
-    - scala: 2.11.6
-      script: sbt update
-      script: sbt coverage test
+script: sbt coverage test
