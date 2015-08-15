@@ -54,18 +54,8 @@ object ProjectBuild extends Build {
     .settings(commonSettings: _*)
     .settings(
       run in Compile <<= run in Compile in server,
-      karma in Test := {
-        "karma start ui/src/test/karma.conf.js" !
-      },
-      test := Def.taskDyn {
-        val exitCode = (karma in Test).value
-        if (exitCode == 0) {
-          Def.task {
-            (test in Test).value
-          }
-        }
-        else throw new IllegalStateException("UI tests fails")
-      }.value
+      test := allTestTask.value,
+      karma in Test := runOrExit(useDefaults = true)
     )
     .aggregate(server, firstProject, secondProject, ui)
 
@@ -74,5 +64,41 @@ object ProjectBuild extends Build {
   parallelExecution in Test := false
 
   lazy val karma = taskKey[Int]("Run UI test via Karma")
+
+  def runOrExit(useDefaults: Boolean = false): Int = {
+    if (useDefaults) {
+      s"${karmaCommand.getOrElse("karma")} start ui/src/test/karma.conf.js $karmaArgs" !
+    } else {
+      karmaCommand.fold(0) { command =>
+        s"$command start ui/src/test/karma.conf.js $karmaArgs" !
+      }
+    }
+  }
+
+  def allTestTask: Def.Initialize[Task[Unit]] =
+    Def.taskDyn {
+      val exitCode = runOrExit()
+      if (exitCode == 0) {
+        Def.task {
+          (test in Test).value
+        }
+      } else {
+        throw new IllegalStateException("UI tests fails")
+      }
+    }
+
+  /**
+   * Path to karma, for example
+   *
+   * sbt test -Dkarma=/usr/bin/karma.
+   */
+  def karmaCommand = sys.props.get("karma")
+
+  /**
+   * Karma options
+   *
+   * ex:  sbt karma -Dkarma=./node_modules/karma/bin/karma -Dkarma-opt="--log-level=debug"
+   */
+  def karmaArgs = sys.props.get("karma-opt").getOrElse("--single-run")
 
 }
